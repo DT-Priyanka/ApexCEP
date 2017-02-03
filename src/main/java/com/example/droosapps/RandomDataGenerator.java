@@ -3,6 +3,8 @@
  */
 package com.example.droosapps;
 
+import java.util.Random;
+
 import com.datatorrent.api.DefaultOutputPort;
 import com.datatorrent.api.InputOperator;
 import com.datatorrent.common.util.BaseOperator;
@@ -13,6 +15,7 @@ import com.datatorrent.common.util.BaseOperator;
 public class RandomDataGenerator extends BaseOperator implements InputOperator {
 	private int numTuples = 100;
 	private transient int count = 0;
+	private Random r = new Random();
 
 	public final transient DefaultOutputPort<Product> out = new DefaultOutputPort<Product>();
 
@@ -25,9 +28,9 @@ public class RandomDataGenerator extends BaseOperator implements InputOperator {
 	public void emitTuples() {
 		if (count++ < numTuples) {
 			if (count % 2 == 0) {
-				out.emit(new Product("gold", 0));
+				out.emit(new Product(r.nextLong(), "gold", 0));
 			} else {
-				out.emit(new Product("diamond", 0));
+				out.emit(new Product(r.nextLong(), "diamond", 0));
 			}
 		}
 	}

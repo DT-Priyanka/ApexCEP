@@ -1,7 +1,8 @@
 package org.jboss.ddoyle.rhsummit2014.bags;
 
-import org.jboss.ddoyle.drools.cep.demo.model.BagScannedEvent;
-import org.jboss.ddoyle.drools.cep.demo.model.Location;
+import com.example.droosapps.model.BagScannedEvent;
+import com.example.droosapps.model.Location;
+import com.example.droosapps.model.BaggageStatus;
 
 declare BagScannedEvent
     @role( event )
@@ -16,4 +17,9 @@ when
     not BagScannedEvent( bagTag.id == $b1.bagTag.id, location == Location.SORTING, this after[0s,10m] $b1 ) from entry-point AirportStream
 then
 	System.out.println("Baggage lost at sorting. BagTag ID: " + $b1.getBagTag().getId());
+	insert(new BaggageStatus($b1.getBagTag().getId(), true));
+end
+
+query "getBaggageStatus"
+    $result: BaggageStatus()
 end

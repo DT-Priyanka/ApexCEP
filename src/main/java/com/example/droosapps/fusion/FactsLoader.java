@@ -22,7 +22,7 @@ import com.example.droosapps.model.Event;
 import com.example.droosapps.model.Location;
 
 /**
- * Loads {@link Fact objects from the given (CSV) file. 
+ * Loads {@link Fact objects from the given (CSV) file.
  * 
  * @author <a href="mailto:duncan.doyle@redhat.com">Duncan Doyle</a>
  */
@@ -57,6 +57,7 @@ public class FactsLoader
 
   private static List<Event> loadEvents(BufferedReader reader)
   {
+    LOGGER.info("Loading events from csv file.");
     List<Event> eventList = new ArrayList<Event>();
     try {
       String nextLine;
